@@ -1,20 +1,10 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
-import Landing from './pages/Landing';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Landing />,
-  },
-  {
-    path: '/home',
-    element: <Home />,
-  },
-]);
+import { RouterProvider } from 'react-router-dom';
 
-const App: React.FunctionComponent = () => {
+import router from './conf/route';
+
+const App: React.FC = () => {
   return (
     <>
       <RouterProvider router={router} />
