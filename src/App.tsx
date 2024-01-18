@@ -1,9 +1,13 @@
 import React from 'react';
 
-const App: React.FunctionComponent = () => {
+import { RouterProvider } from 'react-router-dom';
+
+import router from './conf/route';
+
+const App: React.FC = () => {
   return (
     <>
-      <p className="text-3xl font-bold text-green-400">Hello world!</p>
+      <RouterProvider router={router} />
     </>
   );
 };
