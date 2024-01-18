@@ -1,9 +1,13 @@
 import React from 'react';
 
-const App: React.FunctionComponent = () => {
+import { RouterProvider } from 'react-router-dom';
+
+import router from './conf/route';
+
+const App: React.FC = () => {
   return (
     <>
-      <div> Plants project </div>
+      <RouterProvider router={router} />
     </>
   );
 };
