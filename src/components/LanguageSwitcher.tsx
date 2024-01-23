@@ -4,8 +4,6 @@ const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
   const changeLanguage = (lng: string) => {
-    console.log(`the lng is ${lng}`);
-
     i18n.changeLanguage(lng);
   };
 

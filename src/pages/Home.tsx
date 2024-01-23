@@ -1,7 +1,16 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+
 const Home: React.FC = () => {
-  return <div>This is a Home</div>;
+  const { t } = useTranslation();
+  return (
+    <div>
+      <LanguageSwitcher />
+      {t('example')}
+    </div>
+  );
 };
 
 export default Home;

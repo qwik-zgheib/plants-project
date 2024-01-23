@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher';
-
 import { FaShoppingCart } from 'react-icons/fa';
 import { HiMiniUser } from 'react-icons/hi2';
 import { IoSunny } from 'react-icons/io5';
@@ -51,7 +48,6 @@ const NavbarBtn = ({ text, icon, path }: Omit<IItems, 'name'>) => {
 };
 
 const Navbar: React.FC = () => {
-  const { t } = useTranslation();
   const centerIcons: IItems[] = [
     { name: 'light', icon: <IoSunny />, fnHandle: () => console.log('light') },
     { name: 'market', text: 'shopping cart', icon: <FaShoppingCart />, path: '/shop', fnHandle: () => console.log('market') },
@@ -64,11 +60,10 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="flex flex-col">
-      {t('example')}
       <div className="flex flex-row justify-between items-center bg-[#00755C] px-5 py-3">
         <img src={logo} alt="Tree Icon" className="rounded-full  w-8" />
         <div className="flex flex-row gap-2">
-          {centerIcons.map((item) => ({t('example')}
+          {centerIcons.map((item) => (
             <NavbarBtn key={item.name} text={item?.text} icon={item.icon} path={item?.path} fnHandle={item.fnHandle} />
           ))}
         </div>
