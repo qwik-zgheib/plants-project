@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { RouterProvider } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
+import { RouterProvider } from 'react-router-dom';
 
-import router from './conf/route';
 import i18n from './i18n/config';
+import router from './conf/route';
 
 const App: React.FC = () => {
   return (
