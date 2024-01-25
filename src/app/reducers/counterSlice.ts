@@ -1,25 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { INCREMENT, DECREMENT, INCREMENT_BY_AMOUNT, CounterActionTypes } from '../actions/types';
 
-// Define el estado inicial
-const initialState: number = 0;
+interface CounterState {
+  count: number;
+}
 
-// Crea el slice
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    increment: (state) => {
-      return state + 1;
-    },
-    decrement: (state) => {
-      return state - 1;
-    },
-    // Puedes agregar otras acciones según tus necesidades
-  },
-});
+const initialState: CounterState = {
+  count: 0,
+};
 
-// Exporta las acciones generadas automáticamente
-export const { increment, decrement } = counterSlice.actions;
+const counterReducer = (state: CounterState = initialState, action: CounterActionTypes): CounterState => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case DECREMENT:
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    case INCREMENT_BY_AMOUNT:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
-// Exporta el reducer
-export default counterSlice.reducer;
+export default counterReducer;
