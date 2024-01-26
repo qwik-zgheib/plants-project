@@ -3,8 +3,6 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import LanguageSwitcher from '../components/LanguageSwitcher';
-
 import { RootState, AppDispatch } from '../app/store';
 
 import { increment, decrement, incrementByAmount } from '../app/actions/counter';
@@ -32,7 +30,6 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <LanguageSwitcher />
       {t('example')}
     </div>
   );

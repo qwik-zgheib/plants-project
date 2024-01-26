@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Outlet } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { FaShoppingCart } from 'react-icons/fa';
 import { HiMiniUser } from 'react-icons/hi2';
@@ -8,50 +10,27 @@ import { IoSunny } from 'react-icons/io5';
 import { LuLanguages } from 'react-icons/lu';
 
 import logo from '../assets/images/tabnine.png';
+import NavbarBtn from './NavbarBtn';
 
-interface IItems {
-  name: string;
-  text?: string;
-  icon: JSX.Element;
-  path?: string;
-  fnHandle: () => void;
-}
-
-const NavbarBtn = ({ text, icon, path }: Omit<IItems, 'name'>) => {
-  const [showText, setShowText] = useState(false);
-
-  const handleHover = () => {
-    if (text) {
-      setShowText(true);
-    }
-  };
-
-  const handleLeaveHover = () => {
-    setShowText(false);
-  };
-
-  const handlePath = () => {
-    console.log(`you are clicking ${path}`);
-  };
-
-  return (
-    <button
-      className="flex flex-row bg-[#A9C2C9] hover:bg-[#C5CFC6] text-[#0A3740] hover:text-[#951F2B] px-4 py-1 rounded-full flex-nowrap justify-center items-center gap-1"
-      onClick={handlePath}
-      onMouseEnter={handleHover}
-      onMouseLeave={handleLeaveHover}
-    >
-      {icon}
-      {showText && <span>{text}</span>}
-    </button>
-  );
-};
+import { IItems } from '../@types';
+import { RootState } from '../app/store';
+import { setLanguage } from '../app/reducers/languageSlice';
 
 const Navbar: React.FC = () => {
+  const dispatch = useDispatch();
+  const { i18n } = useTranslation();
+  const currentLanguage = useSelector((state: RootState) => state.language.value);
+
+  const handleChangeLanguage = () => {
+    const newLanguage = currentLanguage === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(newLanguage);
+    dispatch(setLanguage(newLanguage));
+  };
+
   const centerIcons: IItems[] = [
     { name: 'light', icon: <IoSunny />, fnHandle: () => console.log('light') },
-    { name: 'market', text: 'shopping cart', icon: <FaShoppingCart />, path: '/shop', fnHandle: () => console.log('market') },
-    { name: 'lang', text: 'es', icon: <LuLanguages />, fnHandle: () => console.log('lang') },
+    { name: 'market', text: 'shopping cart', icon: <FaShoppingCart />, path: '/shop' },
+    { name: 'lang', text: currentLanguage === 'es' ? 'en' : 'es', icon: <LuLanguages />, fnHandle: () => handleChangeLanguage() },
   ];
 
   const rightIcons: IItems[] = [
@@ -62,11 +41,13 @@ const Navbar: React.FC = () => {
     <div className="flex flex-col">
       <div className="flex flex-row justify-between items-center bg-[#00755C] px-5 py-3">
         <img src={logo} alt="Tree Icon" className="rounded-full  w-8" />
+
         <div className="flex flex-row gap-2">
           {centerIcons.map((item) => (
             <NavbarBtn key={item.name} text={item?.text} icon={item.icon} path={item?.path} fnHandle={item.fnHandle} />
           ))}
         </div>
+
         <div className="flex flex-row">
           {rightIcons.map((item) => (
             <NavbarBtn key={item.name} text={item?.text} icon={item.icon} path={item?.path} fnHandle={item.fnHandle} />
