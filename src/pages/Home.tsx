@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { RootState, AppDispatch } from '../app/store';
-
 import { increment, decrement, incrementByAmount } from '../app/actions/counter';
 
 const Home: React.FC = () => {
