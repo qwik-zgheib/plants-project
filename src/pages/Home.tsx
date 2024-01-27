@@ -15,7 +15,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <div className="flex flex-col">
-        <p className="text-gray-700 font-bold px-5">{count}</p>
+        <p className="text-gray-700 dark:text-red-400 font-bold px-5">{count}</p>
         <div className="flex felx-row gap-5 p-2">
           <button className="text-blue-600 font-bold" onClick={() => dispatch(increment())}>
             +
@@ -29,7 +29,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {t('example')}
+      <span className="font-bold text-blue-600 dark:text-sky-500">{t('example')}</span>
     </div>
   );
 };
