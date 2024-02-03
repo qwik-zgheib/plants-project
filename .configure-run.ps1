@@ -1,11 +1,21 @@
-# Check OS and configure core.autocrlf in Git
-if ($env:OSTYPE -like 'darwin*' -or $env:OSTYPE -like 'linux-gnu') {
-  git config --global core.autocrlf input
-  Write-Host "First option"
+# Get information about the operating system
+$osType = $env:OS
+
+# Print the variable for debugging
+Write-Host "Operating system detected: $osType"
+
+# Check if it is Linux
+if ($osType -like 'Unix' -or $osType -like 'Linux') {
+    Write-Host "Configuring Git for Unix or Linux systems: Converting line endings to LF on clone and upload."
+    git config --global core.autocrlf input
+}
+# Check if it is Windows
+elseif ($osType -like 'Windows_NT') {
+    Write-Host "Setting up Git for Windows systems: Converting line endings to CRLF on clone and upload."
+    git config --global core.autocrlf true
 }
 else {
-  git config --global core.autocrlf true
-  Write-Host "Second option"
+    Write-Host "Unrecognized operating system. core.autocrlf not set."
 }
 
 # Check if Node.js is installed
