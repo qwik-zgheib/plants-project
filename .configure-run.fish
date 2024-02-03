@@ -1,12 +1,21 @@
 #!/bin/fish
 
-# Check OS and configure core.autocrlf in Git
-if string match --regex --entire $OSTYPE 'darwin.*'
+# Get information about the operating system
+set osType (uname)
+
+# Print the variable for debugging
+echo "Operating system detected: $osType"
+
+# Check if it is Linux or Unix
+if string match -q '*nix*' $osType; or string match -q 'Linux' $osType
+    echo "Configuring Git for Unix or Linux systems: Converting line endings to LF on clone and upload."
     git config --global core.autocrlf input
-else if string match --regex --entire $OSTYPE 'linux-gnu'
-    git config --global core.autocrlf input
-else
+# Check if it is Windows
+else if string match -q 'CYGWIN*' $osType; or string match -q 'MINGW*' $osType
+    echo "Setting up Git for Windows systems: Converting line endings to CRLF on clone and upload."
     git config --global core.autocrlf true
+else
+    echo "Unrecognized operating system. core.autocrlf not set."
 end
 
 # Check if Node.js and npm are installed
