@@ -1,12 +1,21 @@
 #!/bin/zsh
 
-# Check OS and configure core.autocrlf in Git
-if [[ "$OSTYPE" == "darwin"* ]]; then
+# Get information about the operating system
+osType=$(uname)
+
+# Print the variable for debugging
+echo "Operating system detected: $osType"
+
+# Check if it is Linux or Unix
+if [[ $osType == *nix* || $osType == Linux ]]; then
+    echo "Configuring Git for Unix or Linux systems: Converting line endings to LF on clone and upload."
     git config --global core.autocrlf input
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-    git config --global core.autocrlf input
-else
+# Check if it is Windows
+elif [[ $osType == CYGWIN* || $osType == MINGW* ]]; then
+    echo "Setting up Git for Windows systems: Converting line endings to CRLF on clone and upload."
     git config --global core.autocrlf true
+else
+    echo "Unrecognized operating system. core.autocrlf not set."
 fi
 
 # Check if Node.js and npm are installed
