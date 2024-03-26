@@ -10,13 +10,11 @@ import store from './app/store';
 
 const App: React.FC = () => {
   return (
-    <>
-      <Provider store={store}>
-        <I18nextProvider i18n={i18n}>
-          <RouterProvider router={router} />
-        </I18nextProvider>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <RouterProvider router={router} />
+      </I18nextProvider>
+    </Provider>
   );
 };
 
